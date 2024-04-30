@@ -1,0 +1,161 @@
+Colors:
+  1:
+    identifier: White
+    weight: 1
+    color: "WHITE"
+    type: STATIC #FLASHY - STATIC - RAINBOW
+  2:
+    identifier: Aqua
+    weight: 2
+    color: "AQUA"
+    type: STATIC
+  3:
+    identifier: Black
+    weight: 3
+    color: "BLACK"
+    type: STATIC
+  4:
+    identifier: Blue
+    weight: 4
+    color: "BLUE"
+    type: STATIC
+  5:
+    identifier: DarkAqua
+    weight: 5
+    color: "DARK_AQUA"
+    type: STATIC
+  6:
+    identifier: DarkBlue
+    weight: 6
+    color: "DARK_BLUE"
+    type: STATIC
+  7:
+    identifier: DarkGray
+    weight: 7
+    color: "DARK_GRAY"
+    type: STATIC
+  8:
+    identifier: DarkGreen
+    weight: 8
+    color: "DARK_GREEN"
+    type: STATIC
+  9:
+    identifier: DarkPurple
+    weight: 9
+    color: "DARK_PURPLE"
+    type: STATIC
+  10:
+    identifier: DarkRed
+    weight: 10
+    color: "DARK_RED"
+    type: STATIC
+  11:
+    identifier: Gold
+    weight: 11
+    color: "GOLD"
+    type: STATIC
+  12:
+    identifier: Gray
+    weight: 12
+    color: "DARK_GRAY"
+    type: STATIC
+  13:
+    identifier: Green
+    weight: 13
+    color: "DARK_GREEN"
+    type: STATIC
+  14:
+    identifier: Red
+    weight: 14
+    color: "RED"
+    type: STATIC
+  15:
+    identifier: Yellow
+    weight: 15
+    color: "YELLOW"
+    type: STATIC
+  16:
+    identifier: FlashyWhite
+    weight: 16
+    color: "WHITE"
+    type: FLASHY
+  17:
+    identifier: FlashyAqua
+    weight: 17
+    color: "AQUA"
+    type: FLASHY
+  18:
+    identifier: FlashyBlack
+    weight: 18
+    color: "BLACK"
+    type: FLASHY
+  19:
+    identifier: FlashyBlue
+    weight: 19
+    color: "BLUE"
+    type: FLASHY
+  20:
+    identifier: FlashyDarkAqua
+    weight: 20
+    color: "DARK_AQUA"
+    type: FLASHY
+  21:
+    identifier: FlashyDarkBlue
+    weight: 21
+    color: "DARK_BLUE"
+    type: FLASHY
+  22:
+    identifier: FlashyDarkGray
+    weight: 22
+    color: "DARK_GRAY"
+    type: FLASHY
+  23:
+    identifier: FlashyDarkGreen
+    weight: 23
+    color: "DARK_GREEN"
+    type: FLASHY
+  24:
+    identifier: FlashyDarkPurple
+    weight: 24
+    color: "DARK_PURPLE"
+    type: FLASHY
+  25:
+    identifier: FlashyDarkRed
+    weight: 25
+    color: "DARK_RED"
+    type: FLASHY
+  26:
+    identifier: FlashyGold
+    weight: 26
+    color: "GOLD"
+    type: FLASHY
+  27:
+    identifier: FlashyGray
+    weight: 27
+    color: "GRAY"
+    type: FLASHY
+  28:
+    identifier: FlashyGreen
+    weight: 28
+    color: "GREEN"
+    type: FLASHY
+  29:
+    identifier: FlashyRed
+    weight: 29
+    color: "RED"
+    type: FLASHY
+  30:
+    identifier: FlashyWhite
+    weight: 30
+    color: "WHITE"
+    type: FLASHY
+  31:
+    identifier: FlashyYellow
+    weight: 31
+    color: "YELLOW"
+    type: FLASHY
+  32:
+    identifier: RAINBOW
+    weight: 32
+    color: "RAINBOW"
+    type: RAINBOW

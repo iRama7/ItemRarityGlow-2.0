@@ -1,0 +1,8 @@
+name: ItemRarityGlow
+version: '${project.version}'
+main: rama.spigot.itemrarityglow.ItemRarityGlow
+api-version: '1.13'
+load: POSTWORLD
+softdepend: [item-nbt-api, ItemRarity]
+authors: [ImRama]
+description: Item glowing for Minecraft

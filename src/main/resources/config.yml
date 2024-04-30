@@ -1,0 +1,13 @@
+Effects:
+  Rainbow:
+    colors:
+    interval: 10 #Ticks
+  Flashy:
+    interval: 10
+Items:
+  White:
+    list:
+      - 'DEFAULT' #Default color for all items.
+  Red:
+    list:
+      - 'REDSTONE_DUST'
