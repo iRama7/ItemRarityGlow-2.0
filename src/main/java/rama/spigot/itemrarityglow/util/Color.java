@@ -2,7 +2,7 @@ package rama.spigot.itemrarityglow.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
@@ -23,13 +23,13 @@ public class Color {
 
 
     //Requires valid color enum
-    public Color(Plugin main, String identifier, int weight, String type, String color){ //Creates new scoreboard and registers a new team with the desired color
+    public Color(Plugin main, String identifier, int weight, String type, String color, Scoreboard scoreboard){ //Creates new scoreboard and registers a new team with the desired color
         this.identifier = identifier;
         this.weight = weight;
         this.type = type;
         this.main = main;
-        this.scoreboard = main.getServer().getScoreboardManager().getNewScoreboard();
-        this.team = scoreboard.registerNewTeam("team_" + identifier);
+        this.scoreboard = scoreboard;
+        this.team = scoreboard.registerNewTeam("t_" + identifier);
         this.color = ChatColor.valueOf(color);
         team.setColor(this.color);
         materials = new ArrayList<>();
@@ -69,6 +69,11 @@ public class Color {
 
     public String toString(){
         return materials.toString();
+    }
+
+    public void addItem(Entity item){
+        team.addEntry(item.getUniqueId().toString());
+        item.setGlowing(true);
     }
 
 }

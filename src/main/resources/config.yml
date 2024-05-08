@@ -1,3 +1,4 @@
+Debug: false
 Effects:
   Rainbow:
     colors:
@@ -10,4 +11,4 @@ Items:
       - 'DEFAULT' #Default color for all items.
   Red:
     list:
-      - 'REDSTONE_DUST'
+      - 'REDSTONE'

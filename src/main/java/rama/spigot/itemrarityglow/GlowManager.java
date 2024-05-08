@@ -1,19 +1,28 @@
 package rama.spigot.itemrarityglow;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.Material;
+import org.bukkit.entity.Item;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scoreboard.Scoreboard;
 import rama.spigot.itemrarityglow.util.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GlowManager {
+public class GlowManager implements Listener {
 
     private final List<Color> colors;
-    private final Plugin main;
+    private final ItemRarityGlow main;
+    private final Scoreboard scoreboard;
 
-    public GlowManager(Plugin main){
+    public GlowManager(ItemRarityGlow main, Scoreboard scoreboard){
         this.main = main;
+        this.scoreboard = scoreboard;
         colors = new ArrayList<>();
     }
 
@@ -43,6 +52,47 @@ public class GlowManager {
         for(Color c : colors){
             Bukkit.getConsoleSender().sendMessage(c.toString());
         }
+    }
+
+
+    //Adding glow to dropped items
+    @EventHandler
+    public void itemDropEvent(ItemSpawnEvent e){
+        Item entity = e.getEntity();
+        ItemStack item = entity.getItemStack();
+        Material material = item.getType();
+        Color color = getMostWeightColor(material);
+
+        if(color != null){
+            color.addItem(entity);
+            if(main.debug()) {
+                main.log("&e[&6DEBUG&e] &eAdding color (&f" + color.getIdentifier() + "&e) to material &f" + material.toString(), true, null);
+            }
+        }
+
+    }
+
+
+    //Updating player scoreboard when joining
+    @EventHandler
+    public void playerJoinEvent(PlayerJoinEvent e){
+        e.getPlayer().setScoreboard(scoreboard);
+    }
+
+    //Returns most weight color that contains material or null if not found
+    private Color getMostWeightColor(Material material){
+        Color mwc = null;
+        for(Color color : colors){
+            if(color.containsMaterial(material)){
+                if(mwc == null){
+                    mwc = color;
+                }
+                if(color.getWeight() > mwc.getWeight()){
+                    mwc = color;
+                }
+            }
+        }
+        return mwc;
     }
 
 }

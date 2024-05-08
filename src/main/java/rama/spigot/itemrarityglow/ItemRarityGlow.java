@@ -7,7 +7,9 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
 import rama.spigot.itemrarityglow.util.Color;
 import rama.spigot.itemrarityglow.util.NBTMain;
 
@@ -24,6 +26,7 @@ public final class ItemRarityGlow extends JavaPlugin {
     private File colorsFile;
     private FileConfiguration colorsConfig;
     private GlowManager glowManager;
+    private Scoreboard scoreboard;
 
     @Override
     public void onEnable() {
@@ -35,14 +38,18 @@ public final class ItemRarityGlow extends JavaPlugin {
             log("&4&lERROR &cDisabling plugin.", true, null);
             Bukkit.getPluginManager().disablePlugin(this);
         }
-        //Checking for nbtapi before starting
+
         nbtMain = new NBTMain();
         loadConfig();
         loadColorsConfiguration();
 
-        glowManager = new GlowManager(this);
+        scoreboard = getServer().getScoreboardManager().getNewScoreboard();
 
-        //Loading colors
+        glowManager = new GlowManager(this, scoreboard);
+
+        registerEvents();
+
+        //Load colors
         log("&aLoaded &f" + initializeColors(colorsConfig) + " &acolors.", true, null);
         initializeItems(this.getConfig());
 
@@ -94,7 +101,7 @@ public final class ItemRarityGlow extends JavaPlugin {
     }
 
 
-    //Loading all colors from config and adding them to GlowManager.
+    //Loads all colors from config and add them to GlowManager.
     private int initializeColors(FileConfiguration file){
         int count = 0;
         for(String i : file.getConfigurationSection("Colors").getKeys(false)){
@@ -118,14 +125,14 @@ public final class ItemRarityGlow extends JavaPlugin {
                 continue;
             }
 
-            Color color = new Color(this, identifier, weight, type, colorString);
+            Color color = new Color(this, identifier, weight, type, colorString, scoreboard);
             glowManager.addColor(color);
             count++;
         }
         return count;
     }
 
-    //Adding all items from config to each color stored in GlowManager.
+    //Add all items from config to each color stored in GlowManager.
     private void initializeItems(FileConfiguration file){
         for(String identifier : file.getConfigurationSection("Items").getKeys(false)){
 
@@ -159,7 +166,7 @@ public final class ItemRarityGlow extends JavaPlugin {
         }
     }
 
-
+    //Loads colors file configuration.
     private void loadColorsConfiguration() {
         colorsFile = new File(getDataFolder(), "colors.yml");
         if (!colorsFile.exists()) {
@@ -176,6 +183,15 @@ public final class ItemRarityGlow extends JavaPlugin {
 
     private void loadConfig(){
         this.saveDefaultConfig();
+    }
+
+    private void registerEvents(){
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(glowManager, this);
+    }
+
+    public boolean debug(){
+        return getConfig().getBoolean("Debug");
     }
 
 }
