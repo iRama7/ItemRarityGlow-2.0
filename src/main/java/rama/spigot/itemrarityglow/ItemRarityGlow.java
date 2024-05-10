@@ -53,6 +53,8 @@ public final class ItemRarityGlow extends JavaPlugin {
         log("&aLoaded &f" + initializeColors(colorsConfig) + " &acolors.", true, null);
         initializeItems(this.getConfig());
 
+        glowManager.buildRainbowHashMap();
+
 
     }
 
@@ -119,7 +121,7 @@ public final class ItemRarityGlow extends JavaPlugin {
             String type = file.getString("Colors." + i + ".type");
 
             try{
-                ChatColor chatColor = ChatColor.valueOf(colorString);
+                ChatColor.valueOf(colorString);
             }catch (IllegalArgumentException | NullPointerException e){
                 log("&4&lERROR &eInvalid color (&f" + colorString + "&e) in Colors file number &f" + i + "&e.", true, null);
                 continue;
@@ -193,5 +195,6 @@ public final class ItemRarityGlow extends JavaPlugin {
     public boolean debug(){
         return getConfig().getBoolean("Debug");
     }
+
 
 }

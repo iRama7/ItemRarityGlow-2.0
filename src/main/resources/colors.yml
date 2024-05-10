@@ -145,17 +145,12 @@ Colors:
     color: "RED"
     type: FLASHY
   30:
-    identifier: FlashyWhite
-    weight: 30
-    color: "WHITE"
-    type: FLASHY
-  31:
     identifier: FlashyYellow
     weight: 31
     color: "YELLOW"
     type: FLASHY
-  32:
-    identifier: RAINBOW
+  31:
+    identifier: Rainbow
     weight: 32
-    color: "RAINBOW"
+    color: "WHITE"
     type: RAINBOW

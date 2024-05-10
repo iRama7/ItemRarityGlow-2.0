@@ -15,7 +15,7 @@ public class Color {
     private Scoreboard scoreboard;
     private String identifier;
     private int weight;
-    private String type;
+    private String type; //FLASHY - STATIC - RAINBOW
     private Team team;
     private ChatColor color;
     private Plugin main;
@@ -74,6 +74,14 @@ public class Color {
     public void addItem(Entity item){
         team.addEntry(item.getUniqueId().toString());
         item.setGlowing(true);
+    }
+
+    public boolean isItemGlowing(Entity item){
+        return team.hasEntry(item.getUniqueId().toString());
+    }
+
+    public void removeEntity(Entity item){
+        team.removeEntry(item.getUniqueId().toString());
     }
 
 }

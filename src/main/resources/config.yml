@@ -1,7 +1,7 @@
 Debug: false
 Effects:
   Rainbow:
-    colors:
+    colors: "Red-Gold-Green-Aqua"
     interval: 10 #Ticks
   Flashy:
     interval: 10
