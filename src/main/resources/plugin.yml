@@ -6,3 +6,6 @@ load: POSTWORLD
 softdepend: [item-nbt-api, ItemRarity]
 authors: [ImRama]
 description: Item glowing for Minecraft
+commands:
+  irg:
+    description: ItemRarityGlow main command.

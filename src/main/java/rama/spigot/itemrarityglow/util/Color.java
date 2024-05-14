@@ -84,4 +84,12 @@ public class Color {
         team.removeEntry(item.getUniqueId().toString());
     }
 
+    public void clean(){
+        materials = new ArrayList<>();
+    }
+
+    public void removeMaterial(Material material){
+        materials.remove(material);
+    }
+
 }

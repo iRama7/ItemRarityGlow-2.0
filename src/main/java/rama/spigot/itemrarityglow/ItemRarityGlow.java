@@ -3,6 +3,7 @@ package rama.spigot.itemrarityglow;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -54,6 +55,7 @@ public final class ItemRarityGlow extends JavaPlugin {
         initializeItems(this.getConfig());
 
         glowManager.buildRainbowHashMap();
+        registerCommands();
 
 
     }
@@ -135,12 +137,14 @@ public final class ItemRarityGlow extends JavaPlugin {
     }
 
     //Add all items from config to each color stored in GlowManager.
-    private void initializeItems(FileConfiguration file){
+    public void initializeItems(FileConfiguration file){
         for(String identifier : file.getConfigurationSection("Items").getKeys(false)){
 
             Color color = glowManager.getColor(identifier);
 
             if(color != null){
+
+                color.clean(); //Clean materials for reload to work properly
 
                 for(String materialString : file.getStringList("Items." + identifier + ".list")){
 
@@ -183,6 +187,12 @@ public final class ItemRarityGlow extends JavaPlugin {
         }
     }
 
+    private void registerCommands(){
+        TabExecutor tabExecutor = new Commands(this);
+        this.getCommand("irg").setExecutor(tabExecutor);
+        this.getCommand("irg").setTabCompleter(tabExecutor);
+    }
+
     private void loadConfig(){
         this.saveDefaultConfig();
     }
@@ -196,5 +206,7 @@ public final class ItemRarityGlow extends JavaPlugin {
         return getConfig().getBoolean("Debug");
     }
 
-
+    public GlowManager getGlowManager() {
+        return glowManager;
+    }
 }

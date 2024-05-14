@@ -195,4 +195,8 @@ public class GlowManager implements Listener {
 
     }
 
+    public List<Color> getColors(){
+        return colors;
+    }
+
 }
