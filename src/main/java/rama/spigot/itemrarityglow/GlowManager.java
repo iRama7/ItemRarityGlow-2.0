@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Scoreboard;
 import rama.spigot.itemrarityglow.util.Color;
+import rama.spigot.itemrarityglow.util.NBTMain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ public class GlowManager implements Listener {
     private final ItemRarityGlow main;
     private final Scoreboard scoreboard;
 
+    private final NBTMain nbtMain;
+
     private List<Entity> flashyItems;
     private List<Entity> rainbowItems;
     private HashMap<Integer, Color> rainbowColors;
@@ -29,6 +32,7 @@ public class GlowManager implements Listener {
     public GlowManager(ItemRarityGlow main, Scoreboard scoreboard){
         this.main = main;
         this.scoreboard = scoreboard;
+        nbtMain = main.getNbtMain();
         colors = new ArrayList<>();
         flashyItems = new ArrayList<>();
         rainbowColors = new HashMap<>();
@@ -54,7 +58,7 @@ public class GlowManager implements Listener {
 
     }
 
-    public boolean containsColor(String identifier){
+    public boolean existsColor(String identifier){
         for(Color c : colors){
             if(c.getIdentifier().equals(identifier)){
                 return true;
@@ -65,7 +69,7 @@ public class GlowManager implements Listener {
 
     public Color getColor(String identifier){
         for(Color c : colors){
-            if(c.getIdentifier().equals(identifier)){
+            if(c.getIdentifier().equalsIgnoreCase(identifier)){
                 return c;
             }
         }
@@ -85,13 +89,27 @@ public class GlowManager implements Listener {
         Item entity = e.getEntity();
         ItemStack item = entity.getItemStack();
         Material material = item.getType();
-        Color color = getMostWeightColor(material);
+        Color color;
 
+        //check for the nbt tag
+
+        String value = nbtMain.getNBT(item);
+        Bukkit.getLogger().info("Value is " + value);
+        color = getColor(value);
         if(color != null){
+            Bukkit.getLogger().info("Color not null, adding " + color.getIdentifier() + " to " + entity.getType());
+            color.addItem(entity);
+        }else{
+
+            color = getMostWeightColor(material);
+
+            if(color == null){
+                return;
+            }
 
             if(color.getType().equals("STATIC")) {
-
                 color.addItem(entity);
+                nbtMain.addNBT(color.getIdentifier(), item);
                 if (main.debug()) {
                     main.log("&e[&6DEBUG&e] &eAdding color (&f" + color.getIdentifier() + "&e) to material &f" + material.toString(), true, null);
                 }
@@ -100,6 +118,7 @@ public class GlowManager implements Listener {
 
             if(color.getType().equals("FLASHY")){
                 color.addItem(entity);
+                nbtMain.addNBT(color.getIdentifier(), item);
                 flashyItems.add(entity);
                 if (main.debug()) {
                     main.log("&e[&6DEBUG&e] &eAdding Flashy color (&f" + color.getIdentifier() + "&e) to material &f" + material.toString(), true, null);
